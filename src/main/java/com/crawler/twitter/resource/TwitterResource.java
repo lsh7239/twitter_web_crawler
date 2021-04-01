@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -20,7 +21,7 @@ public class TwitterResource {
     }
 
     @GetMapping(value="/{search}")
-    public Set<Tweet> findByWords(@PathVariable("search") String word){
+    public List<Tweet> findByWords(@PathVariable("search") String word){
         return twitterLogic.searchWord(word);
     }
 }

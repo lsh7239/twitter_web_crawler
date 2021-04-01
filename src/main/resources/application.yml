@@ -1,0 +1,6 @@
+oauth:
+  bearerToken: AAAAAAAAAAAAAAAAAAAAAFeqOAEAAAAAreZAnyRzGY1PxxcBLlBZEKZO6PI%3D7YVZlVsSulVzdVB0qUsz4t9Md6jmfSaimS9BbK4vRJMeMkHixY
+spring:
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200

@@ -52,12 +52,12 @@ public class TwitterCrawler {
 
         logger.info(String.format("start search %s",searchString));
 
-        String bearerToken = "AAAAAAAAAAAAAAAAAAAAAFeqOAEAAAAAreZAnyRzGY1PxxcBLlBZEKZO6PI%3D7YVZlVsSulVzdVB0qUsz4t9Md6jmfSaimS9BbK4vRJMeMkHixY";
+//        String bearerToken = "AAAAAAAAAAAAAAAAAAAAAFeqOAEAAAAAreZAnyRzGY1PxxcBLlBZEKZO6PI%3D7YVZlVsSulVzdVB0qUsz4t9Md6jmfSaimS9BbK4vRJMeMkHixY";
 
         try{
-//            URL url = new URL("https://api.twitter.com/2/tweets/search/recent?query="+URLEncoder.encode(searchString,"UTF-8")+"&max_results=20&tweet.fields=author_id,created_at");
+            URL url = new URL("https://api.twitter.com/2/tweets/search/recent?query="+URLEncoder.encode(searchString,"UTF-8")+"&max_results=20&tweet.fields=author_id,created_at");
 //            URL url = new URL("https://api.twitter.com/2/tweets/search/stream/rules"+"?tweet.fields=author_id,created_at");
-            URL url = new URL("https://api.twitter.com/2/tweets/search/stream"+"?tweet.fields=author_id,created_at");
+//            URL url = new URL("https://api.twitter.com/2/tweets/search/stream"+"?tweet.fields=author_id,created_at");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestProperty("Authorization","Bearer "+bearerToken);
@@ -65,7 +65,7 @@ public class TwitterCrawler {
             conn.setRequestProperty("Content-Type","application/json");
             conn.setRequestMethod("GET");
 
-//            conn.setDoOutput(true);
+            conn.setDoOutput(true);
 //            try(OutputStream os = conn.getOutputStream()){
 //                os.write(("{\n" +
 //                        "  \"add\": [\n" +
@@ -82,7 +82,7 @@ public class TwitterCrawler {
             try(BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))){
                 String output = null;
                 while ((output = in.readLine()) != null) {
-                    System.out.println(output);
+//                    System.out.println(output);
                     response.append(output);
                 }
             }catch (Exception e) {
@@ -97,6 +97,7 @@ public class TwitterCrawler {
                 tweet.setAuthorId(m.get("author_id"));
                 tweet.setId(m.get("id"));
                 tweet.setText(m.get("text"));
+                tweet.setKey(searchString);
                 return tweet;
             }).collect(Collectors.toSet());
 
